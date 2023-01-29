@@ -6,7 +6,7 @@ const getRapsheetPath = bonkApiBase + "/v1/rapsheet"
 
 const getOffenses = async(): Promise<String[]> => {
     var requestData = {
-
+        "serverId": "testServer"
     }
 
     var response = await fetch(
@@ -17,11 +17,13 @@ const getOffenses = async(): Promise<String[]> => {
         }
     ).then(
         async(value: Response) => {
-            return JSON.parse(await value.json())
+            const returnedData = await value.json()
+            const offenseList = returnedData["offenses"]
+            return offenseList
         },
         async(reason) => {
             console.log(reason)
-            return
+            return []
         }
     )
     return []
