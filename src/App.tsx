@@ -1,10 +1,14 @@
 import './App.css';
 
+import * as React from 'react';
+
+
 import { SubmitButton } from './components/SubmitButton';
 import { PageHeader } from './components/PageHeader';
 import { ServerSelector } from './components/ServerSelector';
 import { OffenseSelector } from './components/OffenseSelector';
-import * as React from 'react';
+import { getOffenses, getRapsheet } from './services/bonkService/bonkServiceAccessor';
+
 function App() {
     const [selectedServer, setSelectedServer] = React.useState('');
     const serverList = ["option1", "option2"]
@@ -12,6 +16,15 @@ function App() {
     const offenseList = ["option3", "option4"]
     const [selectedUser, setSelectedUser] = React.useState('');
     const userList = ["option5", "option6"]
+
+    const submitOffense = () => {
+        getOffenses()
+        console.log("Server: " + selectedServer)
+        console.log("User: " + selectedUser)
+        console.log("Offense: " + selectedOffense)
+        return
+    }
+
 
     return (
         <div>
@@ -30,9 +43,7 @@ function App() {
                 setUser = {setSelectedUser}
             />
             <SubmitButton
-                selectedServer = {selectedServer}
-                selectedUser = {selectedUser}
-                selectedOffense = {selectedOffense}
+                submitFunction = {submitOffense}
             />
         </div>
     );
