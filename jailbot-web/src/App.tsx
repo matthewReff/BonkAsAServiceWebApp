@@ -1,68 +1,41 @@
 import './App.css';
-import FormControl from '@mui/material/FormControl'
-import InputLabel from '@mui/material/InputLabel'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
-import MenuItem from '@mui/material/MenuItem'
+
+import { SubmitButton } from './components/SubmitButton';
+import { PageHeader } from './components/PageHeader';
+import { ServerSelector } from './components/ServerSelector';
+import { OffenseSelector } from './components/OffenseSelector';
 import * as React from 'react';
-
 function App() {
-  return (
-    <div>
-        <PageHeader />
-        <ServerSelector />
-        <OffenseSelector />
-        <SubmitButton />
-    </div>
-  );
-}
+    const [selectedServer, setSelectedServer] = React.useState('');
+    const serverList = ["option1", "option2"]
+    const [selectedOffense, setSelectedOffense] = React.useState('');
+    const offenseList = ["option3", "option4"]
+    const [selectedUser, setSelectedUser] = React.useState('');
+    const userList = ["option5", "option6"]
 
-function PageHeader() {
     return (
         <div>
-            <header>
-                <p>Bonk Bot Webapp</p>
-            </header>
+            <PageHeader/>
+            <ServerSelector
+                serverList = {serverList}
+                selectedServer = {selectedServer}
+                setServer = {setSelectedServer}
+            />
+            <OffenseSelector
+                offenseList = {offenseList}
+                selectedOffense = {selectedOffense}
+                setOffense = {setSelectedOffense}
+                userList = {userList}
+                selectedUser = {selectedUser}
+                setUser = {setSelectedUser}
+            />
+            <SubmitButton
+                selectedServer = {selectedServer}
+                selectedUser = {selectedUser}
+                selectedOffense = {selectedOffense}
+            />
         </div>
-    )
-}
-
-function ServerSelector() {
-    const [age, setAge] = React.useState('');
-
-    const handleChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value);
-    };
-
-    return (
-        <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Server</InputLabel>
-            <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={age}
-                label="Sever"
-                onChange={handleChange}
-            >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-            </FormControl>
-    )
-}
-function OffenseSelector() {
-    return (
-        <div>
-            <p>Offense Thing</p>
-        </div>
-    )
-}
-function SubmitButton() {
-    return (
-        <div>
-            <p>Submit Thing</p>
-        </div>
-    )
+    );
 }
 
 export default App;
