@@ -2,11 +2,10 @@ import { RapSheet, ServerScopedUser } from "./bonkServiceModels"
 
 const bonkApiBase = "https://testapi.tendec.dev"
 const getOffensesPath = bonkApiBase + "/v1/getoffenses"
-const getRapsheetPath = bonkApiBase + "/v1/rapsheet"
 
-const getOffenses = async(): Promise<String[]> => {
+const getOffenses = async(serverId: string): Promise<string[]> => {
     var requestData = {
-        "serverId": "testServer"
+        "serverId": serverId
     }
 
     var response = await fetch(
@@ -17,21 +16,20 @@ const getOffenses = async(): Promise<String[]> => {
         }
     ).then(
         async(value: Response) => {
-            const returnedData = await value.json()
-            const offenseList = returnedData["offenses"]
-            return offenseList
+            return parseGetOffensesResponse(value)
         },
         async(reason) => {
-            console.log(reason)
+            console.log("Failed request: " + reason)
             return []
         }
     )
-    return []
+    return response
 }
 
-const getRapsheet = async (): Promise<RapSheet> => {
-    const user = new ServerScopedUser("", "")
-    return new RapSheet(user, new Map<String, number>())
+const parseGetOffensesResponse = async(response: Response): Promise<string[]> => {
+    const returnedData = await response.json()
+    const offenseList = returnedData["offenses"]
+    return offenseList
 }
 
-export { getOffenses, getRapsheet }
+export { getOffenses }

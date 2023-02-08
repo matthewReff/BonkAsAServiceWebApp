@@ -7,24 +7,44 @@ import { SubmitButton } from './components/SubmitButton';
 import { PageHeader } from './components/PageHeader';
 import { ServerSelector } from './components/ServerSelector';
 import { OffenseSelector } from './components/OffenseSelector';
-import { getOffenses, getRapsheet } from './services/bonkService/bonkServiceAccessor';
+import { getOffenses } from './services/bonkService/bonkServiceAccessor';
 
 function App() {
+    const [serverList, setServerList] = React.useState(["testServer"]);
     const [selectedServer, setSelectedServer] = React.useState('');
-    const serverList = ["option1", "option2"]
+    const [offenseList, setOffenseList] = React.useState(new Array<String>);
     const [selectedOffense, setSelectedOffense] = React.useState('');
-    const offenseList = ["option3", "option4"]
+    const [userList, setUserList] = React.useState(new Array<String>);
     const [selectedUser, setSelectedUser] = React.useState('');
-    const userList = ["option5", "option6"]
+
+    function onLoadAvailableServers(serverList: string[]) {
+        setServerList(serverList)
+        setSelectedServer(serverList.at(0) ?? '')
+    }
+
+    function onLoadAvailableOffenses(offenseList: string[]) {
+        setOffenseList(offenseList)
+        setSelectedOffense(offenseList.at(0) ?? '')
+    }
+
+    function onLoadUserList(userList: string[]) {
+        setUserList(userList)
+        setSelectedUser(userList.at(0) ?? '')
+    }
+
+    function loadOffenses() {
+        getOffenses(selectedServer ?? "")
+        .then((offenseList) => {
+            onLoadAvailableOffenses(offenseList)
+        })
+    }
 
     const submitOffense = () => {
-        getOffenses()
         console.log("Server: " + selectedServer)
         console.log("User: " + selectedUser)
         console.log("Offense: " + selectedOffense)
         return
     }
-
 
     return (
         <div>
@@ -44,6 +64,9 @@ function App() {
             />
             <SubmitButton
                 submitFunction = {submitOffense}
+            />
+            <SubmitButton
+                submitFunction = {loadOffenses}
             />
         </div>
     );

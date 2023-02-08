@@ -11,7 +11,9 @@ export function ServerSelector(props: any) {
 
     const generateMenuItemFromServer = (serverValue?: any) => {
         return (
-            <MenuItem value={serverValue}>{serverValue}</MenuItem>
+            <MenuItem value={serverValue} key={serverValue}>
+                {serverValue}
+                </MenuItem>
         )
     }
 

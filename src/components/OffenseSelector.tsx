@@ -15,13 +15,17 @@ export function OffenseSelector(props: any) {
 
     const generateMenuItemFromUser = (userValue?: any) => {
         return (
-            <MenuItem value={userValue}>{userValue}</MenuItem>
+            <MenuItem value={userValue} key={userValue}>
+                {userValue}
+            </MenuItem>
         )
     }
 
     const generateMenuItemFromOffense = (offenseValue?: any) => {
         return (
-            <MenuItem value={offenseValue}>{offenseValue}</MenuItem>
+            <MenuItem value={offenseValue} key={offenseValue}>
+                {offenseValue}
+            </MenuItem>
         )
     }
 
