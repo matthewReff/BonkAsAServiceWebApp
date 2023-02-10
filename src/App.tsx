@@ -10,7 +10,7 @@ import { OffenseSelector } from './components/OffenseSelector';
 import { getOffenses } from './services/bonkService/bonkServiceAccessor';
 
 function App() {
-    const [serverList, setServerList] = React.useState(["testServer"]);
+    const [serverList, setServerList] = React.useState(["testServer", "229093679103606785"]);
     const [selectedServer, setSelectedServer] = React.useState('');
     const [offenseList, setOffenseList] = React.useState(new Array<String>);
     const [selectedOffense, setSelectedOffense] = React.useState('');
